@@ -1,12 +1,24 @@
 <?php
 
+include "EditorState.php";
+
+// Originator
 class Editor {
     private string $content;
 
-    public function setContent(string $content): Editor
+    public function createState(): EditorState
+    {
+        return new EditorState($this->content);
+    }
+
+    public function restore(EditorState $editorState)
+    {
+        $this->content = $editorState->getContent();
+    }
+
+    public function setContent(string $content)
     {
         $this->content = $content;
-        return $this;
     }
 
     public function getContent(): string
